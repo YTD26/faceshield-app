@@ -128,7 +128,7 @@ class _MainNavigationState extends State<MainNavigation> {
               ),
               SizedBox(height: 12),
               Text(
-                'FaceShield processes your photos and videos to detect and blur faces. Here\\'s how we handle your data:',
+                'FaceShield processes your photos and videos to detect and blur faces. Here\'s how we handle your data:',
                 style: TextStyle(color: Colors.white70, height: 1.5),
               ),
               SizedBox(height: 16),
