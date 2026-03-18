@@ -1,13 +1,12 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:gal/gal.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:uuid/uuid.dart';
 
 import '../models/face_model.dart';
 import '../services/api_service.dart';
@@ -26,7 +25,6 @@ class PhotoModeScreen extends StatefulWidget {
 class _PhotoModeScreenState extends State<PhotoModeScreen> {
   final ImagePicker _picker = ImagePicker();
 
-  // State
   Uint8List? _originalImageBytes;
   Uint8List? _blurredImageBytes;
   List<FaceModel> _faces = [];
@@ -53,43 +51,29 @@ class _PhotoModeScreenState extends State<PhotoModeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Image picker buttons
             if (_originalImageBytes == null && !_isDetecting) ...[
               const SizedBox(height: 40),
               _buildPickerButtons(),
               const SizedBox(height: 40),
             ],
-
-            // Loading shimmer
             if (_isDetecting) _buildShimmerLoading('Detecting faces...'),
-
-            // Image with face overlays
             if (_originalImageBytes != null && !_isDetecting) ...[
               _buildImagePreview(),
               const SizedBox(height: 16),
-
-              // Face thumbnail grid
               if (_faces.isNotEmpty && !_showBlurredResult)
                 FaceThumbnailGrid(
                   faces: _faces,
                   onToggle: _toggleFaceBlur,
                 ),
-
               const SizedBox(height: 16),
-
-              // Action buttons
               if (!_showBlurredResult && _faces.isNotEmpty)
                 _buildApplyBlurButton(),
-
               if (_isBlurring) _buildShimmerLoading('Applying blur...'),
-
-              // Blurred result preview
               if (_showBlurredResult && _blurredImageBytes != null) ...[
                 _buildBlurredPreview(),
                 const SizedBox(height: 16),
                 _buildResultButtons(),
               ],
-
               const SizedBox(height: 8),
               _buildResetButton(),
             ],
@@ -304,8 +288,6 @@ class _PhotoModeScreenState extends State<PhotoModeScreen> {
     );
   }
 
-  // --- Actions ---
-
   Future<void> _pickImage(ImageSource source) async {
     try {
       final picked = await _picker.pickImage(
@@ -394,7 +376,6 @@ class _PhotoModeScreenState extends State<PhotoModeScreen> {
         _isBlurring = false;
       });
 
-      // Save to history
       final filename = 'photo_${DateTime.now().millisecondsSinceEpoch}.jpg';
       final filePath = await StorageService.saveResultFile(result, filename);
 
@@ -407,7 +388,6 @@ class _PhotoModeScreenState extends State<PhotoModeScreen> {
         facesDetected: _faces.length,
       ));
 
-      // Auto-cleanup server data
       final autoDelete = await StorageService.getAutoDelete();
       if (autoDelete) {
         ApiService.cleanupSession(_sessionId!);
@@ -432,8 +412,7 @@ class _PhotoModeScreenState extends State<PhotoModeScreen> {
       final file = File(filePath);
       await file.writeAsBytes(_blurredImageBytes!);
 
-      // Note: gallery_saver would handle the actual save to device gallery
-      // For production, call GallerySaver.saveImage(filePath);
+      await Gal.putImage(filePath);
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
