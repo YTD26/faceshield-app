@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:gal/gal.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -25,11 +26,9 @@ class VideoModeScreen extends StatefulWidget {
 class _VideoModeScreenState extends State<VideoModeScreen> {
   final ImagePicker _picker = ImagePicker();
 
-  // State
   List<PersonModel> _persons = [];
   String? _sessionId;
   String? _processedVideoPath;
-  double _videoDuration = 0;
 
   bool _isUploading = false;
   bool _isDetecting = false;
@@ -52,7 +51,6 @@ class _VideoModeScreenState extends State<VideoModeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Pick video button
             if (!_isUploading &&
                 !_isDetecting &&
                 _persons.isEmpty &&
@@ -61,15 +59,9 @@ class _VideoModeScreenState extends State<VideoModeScreen> {
               _buildPickerSection(),
               const SizedBox(height: 40),
             ],
-
-            // Upload progress
             if (_isUploading) _buildUploadProgress(),
-
-            // Detection loading
             if (_isDetecting)
               _buildShimmerLoading('Analyzing video frames...'),
-
-            // Person grid with blur toggles
             if (_persons.isNotEmpty && !_videoProcessed) ...[
               _buildPersonsHeader(),
               const SizedBox(height: 12),
@@ -77,16 +69,11 @@ class _VideoModeScreenState extends State<VideoModeScreen> {
               const SizedBox(height: 20),
               _buildProcessButton(),
             ],
-
-            // Processing progress
             if (_isProcessing)
               _buildShimmerLoading('Processing video...'),
-
-            // Processed video result
             if (_videoProcessed && _processedVideoPath != null) ...[
               _buildResultSection(),
             ],
-
             if (_persons.isNotEmpty || _videoProcessed) ...[
               const SizedBox(height: 12),
               _buildResetButton(),
@@ -216,7 +203,8 @@ class _VideoModeScreenState extends State<VideoModeScreen> {
       onPressed: blurCount > 0 ? _processVideo : null,
       icon: const Icon(Icons.blur_on),
       label: Text(
-          'Process Video ($blurCount person${blurCount != 1 ? "s" : ""} to blur)'),
+        'Process Video ($blurCount person${blurCount != 1 ? "s" : ""} to blur)',
+      ),
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color(0xFF00BCD4),
         foregroundColor: Colors.white,
@@ -251,10 +239,8 @@ class _VideoModeScreenState extends State<VideoModeScreen> {
           ],
         ),
         const SizedBox(height: 16),
-        // Video player
         VideoPlayerWidget(filePath: _processedVideoPath!),
         const SizedBox(height: 16),
-        // Save and share buttons
         Row(
           children: [
             Expanded(
@@ -332,8 +318,6 @@ class _VideoModeScreenState extends State<VideoModeScreen> {
     );
   }
 
-  // --- Actions ---
-
   Future<void> _pickVideo() async {
     try {
       final picked = await _picker.pickVideo(
@@ -349,8 +333,6 @@ class _VideoModeScreenState extends State<VideoModeScreen> {
         _uploadProgress = 0;
       });
 
-      // Simulate upload progress (actual progress tracking would use
-      // a streaming upload with progress callback)
       for (int i = 1; i <= 10; i++) {
         await Future.delayed(const Duration(milliseconds: 200));
         if (mounted) {
@@ -369,7 +351,6 @@ class _VideoModeScreenState extends State<VideoModeScreen> {
         setState(() {
           _sessionId = result['session_id'] as String;
           _persons = result['persons'] as List<PersonModel>;
-          _videoDuration = result['video_duration'] as double;
           _isDetecting = false;
         });
 
@@ -422,14 +403,12 @@ class _VideoModeScreenState extends State<VideoModeScreen> {
         blurIntensity: blurIntensity,
       );
 
-      // Save to local file
       final dir = await getTemporaryDirectory();
       final filePath =
           '${dir.path}/faceshield_video_${DateTime.now().millisecondsSinceEpoch}.mp4';
       final file = File(filePath);
       await file.writeAsBytes(result);
 
-      // Save to history
       final storedPath = await StorageService.saveResultFile(
         result,
         'video_${DateTime.now().millisecondsSinceEpoch}.mp4',
@@ -450,7 +429,6 @@ class _VideoModeScreenState extends State<VideoModeScreen> {
         _isProcessing = false;
       });
 
-      // Auto-cleanup server data
       final autoDelete = await StorageService.getAutoDelete();
       if (autoDelete) {
         ApiService.cleanupSession(_sessionId!);
@@ -467,14 +445,24 @@ class _VideoModeScreenState extends State<VideoModeScreen> {
 
   Future<void> _saveToGallery() async {
     if (_processedVideoPath == null) return;
-    // In production: GallerySaver.saveVideo(_processedVideoPath!);
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Video saved to gallery'),
-          backgroundColor: Color(0xFF00BCD4),
-        ),
-      );
+
+    try {
+      await Gal.putVideo(_processedVideoPath!);
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Video saved to gallery'),
+            backgroundColor: Color(0xFF00BCD4),
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Save failed: $e')),
+        );
+      }
     }
   }
 
@@ -502,7 +490,6 @@ class _VideoModeScreenState extends State<VideoModeScreen> {
       _persons = [];
       _sessionId = null;
       _processedVideoPath = null;
-      _videoDuration = 0;
       _isUploading = false;
       _isDetecting = false;
       _isProcessing = false;
@@ -512,7 +499,6 @@ class _VideoModeScreenState extends State<VideoModeScreen> {
   }
 }
 
-/// Card widget for a detected person with blur toggle.
 class _PersonCard extends StatelessWidget {
   final PersonModel person;
   final VoidCallback onToggle;
@@ -550,7 +536,6 @@ class _PersonCard extends StatelessWidget {
         ),
         child: Column(
           children: [
-            // Thumbnail
             Expanded(
               child: ClipRRect(
                 borderRadius:
@@ -574,7 +559,6 @@ class _PersonCard extends StatelessWidget {
                 ),
               ),
             ),
-            // Label and toggle
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
