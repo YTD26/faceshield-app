@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'screens/home_screen.dart';
 import 'screens/photo_mode_screen.dart';
@@ -76,7 +75,6 @@ class MainNavigation extends StatefulWidget {
 
 class _MainNavigationState extends State<MainNavigation> {
   int _currentIndex = 0;
-  bool _consentChecked = false;
 
   final List<Widget> _screens = const [
     HomeScreen(),
@@ -97,7 +95,6 @@ class _MainNavigationState extends State<MainNavigation> {
         _showConsentDialog();
       });
     }
-    setState(() => _consentChecked = true);
   }
 
   void _showConsentDialog() {
