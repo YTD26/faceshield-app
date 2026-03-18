@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'screens/history_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/photo_mode_screen.dart';
-import 'screens/video_mode_screen.dart';
-import 'screens/history_screen.dart';
 import 'screens/settings_screen.dart';
+import 'screens/video_mode_screen.dart';
 import 'services/storage_service.dart';
 
 void main() {
@@ -65,7 +65,6 @@ class FaceShieldApp extends StatelessWidget {
   }
 }
 
-/// Main navigation shell with bottom navigation bar.
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
 
@@ -129,7 +128,7 @@ class _MainNavigationState extends State<MainNavigation> {
               ),
               SizedBox(height: 12),
               Text(
-                'FaceShield processes your photos and videos to detect and blur faces. Here\'s how we handle your data:',
+                'FaceShield processes your photos and videos to detect and blur faces. Here\\'s how we handle your data:',
                 style: TextStyle(color: Colors.white70, height: 1.5),
               ),
               SizedBox(height: 16),
@@ -245,7 +244,6 @@ class _MainNavigationState extends State<MainNavigation> {
   }
 }
 
-/// Helper widget for consent dialog items.
 class _ConsentItem extends StatelessWidget {
   final IconData icon;
   final String text;
