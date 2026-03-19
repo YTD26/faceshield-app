@@ -59,6 +59,12 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>FaceShield needs access to save processed photos and videos to your gallery.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>FaceShield needs access to your photo library to save and manage processed media.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>FaceShield needs camera access to capture photos and videos for face detection.</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
