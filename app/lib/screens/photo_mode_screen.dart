@@ -89,7 +89,7 @@ class _PhotoModeScreenState extends State<PhotoModeScreen> {
         Icon(
           Icons.add_photo_alternate_outlined,
           size: 80,
-          color: Colors.white.withOpacity(0.2),
+          color: Colors.white.withValues(alpha: 0.2),
         ),
         const SizedBox(height: 24),
         Row(
@@ -492,10 +492,10 @@ class _ActionButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 24),
           decoration: BoxDecoration(
             border: Border.all(
-              color: const Color(0xFF00BCD4).withOpacity(0.3),
+              color: const Color(0xFF00BCD4).withValues(alpha: 0.3),
             ),
             borderRadius: BorderRadius.circular(16),
-            color: const Color(0xFF1A237E).withOpacity(0.3),
+            color: const Color(0xFF1A237E).withValues(alpha: 0.3),
           ),
           child: Column(
             children: [

@@ -31,7 +31,7 @@ class FaceThumbnailGrid extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.3),
+        color: Colors.black.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -132,7 +132,7 @@ class _FaceThumbnailItem extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 4),
               decoration: BoxDecoration(
                 color: face.shouldBlur
-                    ? const Color(0xFF00BCD4).withOpacity(0.2)
+                    ? const Color(0xFF00BCD4).withValues(alpha: 0.2)
                     : Colors.transparent,
                 borderRadius: const BorderRadius.vertical(
                   bottom: Radius.circular(10),

@@ -70,13 +70,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
           Icon(
             Icons.history,
             size: 80,
-            color: Colors.white.withOpacity(0.15),
+            color: Colors.white.withValues(alpha: 0.15),
           ),
           const SizedBox(height: 16),
           Text(
             'No processed items yet',
             style: TextStyle(
-              color: Colors.white.withOpacity(0.4),
+              color: Colors.white.withValues(alpha: 0.4),
               fontSize: 16,
             ),
           ),
@@ -84,7 +84,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           Text(
             'Photos and videos you process will appear here',
             style: TextStyle(
-              color: Colors.white.withOpacity(0.25),
+              color: Colors.white.withValues(alpha: 0.25),
               fontSize: 13,
             ),
           ),
@@ -107,7 +107,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             padding: const EdgeInsets.only(right: 24),
             margin: const EdgeInsets.only(bottom: 12),
             decoration: BoxDecoration(
-              color: Colors.red.withOpacity(0.2),
+              color: Colors.red.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(14),
             ),
             child: const Icon(
@@ -207,10 +207,10 @@ class _HistoryCard extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: const Color(0xFF1A237E).withOpacity(0.3),
+          color: const Color(0xFF1A237E).withValues(alpha: 0.3),
           borderRadius: BorderRadius.circular(14),
           border: Border.all(
-            color: Colors.white.withOpacity(0.08),
+            color: Colors.white.withValues(alpha: 0.08),
           ),
         ),
         child: Row(
@@ -239,8 +239,8 @@ class _HistoryCard extends StatelessWidget {
                         ),
                         decoration: BoxDecoration(
                           color: isPhoto
-                              ? const Color(0xFF00BCD4).withOpacity(0.2)
-                              : const Color(0xFF9C27B0).withOpacity(0.2),
+                              ? const Color(0xFF00BCD4).withValues(alpha: 0.2)
+                              : const Color(0xFF9C27B0).withValues(alpha: 0.2),
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Text(
@@ -277,7 +277,7 @@ class _HistoryCard extends StatelessWidget {
             ),
             Icon(
               Icons.chevron_right,
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.white.withValues(alpha: 0.2),
             ),
           ],
         ),

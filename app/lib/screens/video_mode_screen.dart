@@ -90,13 +90,13 @@ class _VideoModeScreenState extends State<VideoModeScreen> {
         Icon(
           Icons.video_library_outlined,
           size: 80,
-          color: Colors.white.withOpacity(0.2),
+          color: Colors.white.withValues(alpha: 0.2),
         ),
         const SizedBox(height: 16),
         Text(
           'Select a video (max 5 min)',
           style: TextStyle(
-            color: Colors.white.withOpacity(0.5),
+            color: Colors.white.withValues(alpha: 0.5),
             fontSize: 14,
           ),
         ),
@@ -531,8 +531,8 @@ class _PersonCard extends StatelessWidget {
             width: 2,
           ),
           color: person.shouldBlur
-              ? const Color(0xFF00BCD4).withOpacity(0.1)
-              : Colors.white.withOpacity(0.05),
+              ? const Color(0xFF00BCD4).withValues(alpha: 0.1)
+              : Colors.white.withValues(alpha: 0.05),
         ),
         child: Column(
           children: [
@@ -564,7 +564,7 @@ class _PersonCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
               decoration: BoxDecoration(
                 color: person.shouldBlur
-                    ? const Color(0xFF00BCD4).withOpacity(0.15)
+                    ? const Color(0xFF00BCD4).withValues(alpha: 0.15)
                     : Colors.transparent,
                 borderRadius:
                     const BorderRadius.vertical(bottom: Radius.circular(12)),

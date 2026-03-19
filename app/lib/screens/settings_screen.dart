@@ -137,9 +137,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Container(
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: const Color(0xFF1A237E).withOpacity(0.3),
+        color: const Color(0xFF1A237E).withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: Colors.white.withOpacity(0.08)),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
       ),
       child: Row(
         children: _blurStyleLabels.entries.map((entry) {
@@ -155,12 +155,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 14),
                 decoration: BoxDecoration(
                   color: isSelected
-                      ? const Color(0xFF00BCD4).withOpacity(0.2)
+                      ? const Color(0xFF00BCD4).withValues(alpha: 0.2)
                       : Colors.transparent,
                   borderRadius: BorderRadius.circular(10),
                   border: isSelected
                       ? Border.all(
-                          color: const Color(0xFF00BCD4).withOpacity(0.5))
+                          color: const Color(0xFF00BCD4).withValues(alpha: 0.5))
                       : null,
                 ),
                 child: Column(
@@ -197,9 +197,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF1A237E).withOpacity(0.3),
+        color: const Color(0xFF1A237E).withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: Colors.white.withOpacity(0.08)),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
       ),
       child: Column(
         children: [
@@ -211,7 +211,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF00BCD4).withOpacity(0.2),
+                  color: const Color(0xFF00BCD4).withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
@@ -231,7 +231,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               activeTrackColor: const Color(0xFF00BCD4),
               inactiveTrackColor: Colors.white12,
               thumbColor: const Color(0xFF00BCD4),
-              overlayColor: const Color(0xFF00BCD4).withOpacity(0.2),
+              overlayColor: const Color(0xFF00BCD4).withValues(alpha: 0.2),
               trackHeight: 4,
             ),
             child: Slider(
@@ -265,9 +265,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color: const Color(0xFF1A237E).withOpacity(0.3),
+        color: const Color(0xFF1A237E).withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: Colors.white.withOpacity(0.08)),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
       ),
       child: SwitchListTile(
         contentPadding: EdgeInsets.zero,
@@ -284,7 +284,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           setState(() => _autoDelete = value);
           await StorageService.setAutoDelete(value);
         },
-        activeColor: const Color(0xFF00BCD4),
+        activeThumbColor: const Color(0xFF00BCD4),
         inactiveTrackColor: Colors.white12,
       ),
     );
@@ -294,10 +294,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF1A237E).withOpacity(0.15),
+        color: const Color(0xFF1A237E).withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: const Color(0xFF00BCD4).withOpacity(0.2),
+          color: const Color(0xFF00BCD4).withValues(alpha: 0.2),
         ),
       ),
       child: const Column(
@@ -339,9 +339,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF1A237E).withOpacity(0.3),
+        color: const Color(0xFF1A237E).withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: Colors.white.withOpacity(0.08)),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -389,9 +389,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF1A237E).withOpacity(0.3),
+        color: const Color(0xFF1A237E).withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: Colors.white.withOpacity(0.08)),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
       ),
       child: const Column(
         children: [

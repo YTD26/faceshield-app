@@ -40,7 +40,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFF00BCD4).withOpacity(0.3),
+                          color: const Color(0xFF00BCD4).withValues(alpha: 0.3),
                           blurRadius: 30,
                           spreadRadius: 5,
                         ),
@@ -68,7 +68,7 @@ class HomeScreen extends StatelessWidget {
                     'AI-powered face privacy protection',
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.white.withOpacity(0.6),
+                      color: Colors.white.withValues(alpha: 0.6),
                       letterSpacing: 0.5,
                     ),
                   ),
@@ -156,18 +156,18 @@ class _ModeButtonState extends State<_ModeButton>
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                const Color(0xFF1A237E).withOpacity(0.8),
-                const Color(0xFF283593).withOpacity(0.6),
+                const Color(0xFF1A237E).withValues(alpha: 0.8),
+                const Color(0xFF283593).withValues(alpha: 0.6),
               ],
             ),
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              color: const Color(0xFF00BCD4).withOpacity(0.3),
+              color: const Color(0xFF00BCD4).withValues(alpha: 0.3),
               width: 1,
             ),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF1A237E).withOpacity(0.3),
+                color: const Color(0xFF1A237E).withValues(alpha: 0.3),
                 blurRadius: 12,
                 offset: const Offset(0, 4),
               ),
@@ -179,7 +179,7 @@ class _ModeButtonState extends State<_ModeButton>
                 width: 56,
                 height: 56,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF00BCD4).withOpacity(0.15),
+                  color: const Color(0xFF00BCD4).withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Icon(
@@ -206,7 +206,7 @@ class _ModeButtonState extends State<_ModeButton>
                       widget.subtitle,
                       style: TextStyle(
                         fontSize: 13,
-                        color: Colors.white.withOpacity(0.5),
+                        color: Colors.white.withValues(alpha: 0.5),
                       ),
                     ),
                   ],
@@ -214,7 +214,7 @@ class _ModeButtonState extends State<_ModeButton>
               ),
               Icon(
                 Icons.arrow_forward_ios,
-                color: Colors.white.withOpacity(0.3),
+                color: Colors.white.withValues(alpha: 0.3),
                 size: 18,
               ),
             ],

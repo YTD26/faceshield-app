@@ -48,7 +48,7 @@ class BlurOverlayPainter extends CustomPainter {
       // Draw semi-transparent fill for blur-targeted faces
       if (face.shouldBlur) {
         final fillPaint = Paint()
-          ..color = const Color(0xFF00BCD4).withOpacity(0.15)
+          ..color = const Color(0xFF00BCD4).withValues(alpha: 0.15)
           ..style = PaintingStyle.fill;
         canvas.drawRRect(rrect, fillPaint);
       }
@@ -80,8 +80,8 @@ class BlurOverlayPainter extends CustomPainter {
 
       final labelBgPaint = Paint()
         ..color = face.shouldBlur
-            ? const Color(0xFF00BCD4).withOpacity(0.85)
-            : const Color(0xFF4CAF50).withOpacity(0.85);
+            ? const Color(0xFF00BCD4).withValues(alpha: 0.85)
+            : const Color(0xFF4CAF50).withValues(alpha: 0.85);
       canvas.drawRRect(labelBgRect, labelBgPaint);
 
       textPainter.paint(
