@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:http/http.dart' as http;
 
 import '../models/face_model.dart';
@@ -8,8 +9,46 @@ import '../models/person_model.dart';
 
 /// Service for communicating with the FaceShield FastAPI backend.
 class ApiService {
-  // Default backend URL - configurable via settings
-  static String baseUrl = 'http://10.0.2.2:8000'; // Android emulator localhost
+  /// Backend URL, auto-detected per platform:
+  /// - Web (Codespaces / hosted): same origin, port 8000
+  /// - Android emulator: 10.0.2.2:8000 (maps to host localhost)
+  /// - Other (iOS sim / desktop): localhost:8000
+  static String baseUrl = _defaultBaseUrl();
+
+  static String _defaultBaseUrl() {
+    if (kIsWeb) {
+      // On web we can read the browser location.
+      // In Codespaces the forwarded URL looks like:
+      //   https://<codespace>-<port>.app.github.dev
+      // We replace the app port with 8000 for the backend.
+      final uri = Uri.base; // browser's current URL
+      final host = uri.host; // e.g. "localhost" or "xxx-3000.app.github.dev"
+      final scheme = uri.scheme; // http or https
+
+      // Codespaces: host contains "-<port>.app.github.dev"
+      final codespacePattern = RegExp(r'-\d+(\.app\.github\.dev)');
+      if (codespacePattern.hasMatch(host)) {
+        // Replace the port portion with 8000
+        final backendHost = host.replaceFirst(
+          RegExp(r'-\d+(\.app\.github\.dev)'),
+          '-8000\$1',
+        );
+        return '$scheme://$backendHost';
+      }
+
+      // Local dev or any other web host: same hostname, port 8000
+      return '$scheme://${uri.hostname}:8000';
+    }
+
+    // Native platforms
+    // Android emulator uses 10.0.2.2 to reach host machine's localhost
+    // For a real device or iOS, change this or use the settings screen.
+    const isAndroid = bool.fromEnvironment('dart.library.io');
+    if (isAndroid) {
+      return 'http://10.0.2.2:8000';
+    }
+    return 'http://localhost:8000';
+  }
 
   /// Detect faces in a photo.
   ///
