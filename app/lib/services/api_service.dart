@@ -37,7 +37,7 @@ class ApiService {
       }
 
       // Local dev or any other web host: same hostname, port 8000
-      return '$scheme://${uri.hostname}:8000';
+      return '$scheme://${uri.host}:8000';
     }
 
     // Native platforms
